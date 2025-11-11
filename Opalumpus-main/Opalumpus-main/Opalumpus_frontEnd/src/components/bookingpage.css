@@ -1,0 +1,90 @@
+.booking-container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: teal;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .booking-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #fff;
+  }
+  
+  input, textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #333;
+    font-size: 16px;
+  }
+  
+  input:focus, textarea:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+  
+  textarea {
+    resize: none;
+  }
+  
+  .booking-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #006d6d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .return-btn{
+    display: block;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #006d6d;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    border: none;
+    width: (-20%);
+  }
+  .return-btn:hover{
+    background-color: #005757;
+  }
+  .booking-button:hover {
+    background-color: #005757;
+  }
+  
+  @media (max-width: 768px) {
+    .booking-container {
+      padding: 15px;
+    }
+  
+    .booking-form h2 {
+      font-size: 20px;
+    }
+  }
+  

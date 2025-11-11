@@ -1,0 +1,99 @@
+.destinations {
+  margin: 4rem auto;
+  max-width: 1200px;
+}
+
+.destinations h1 {
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+.first-des {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin: 4rem;
+}
+.des-text {
+  width: 45%;
+  text-align: start;
+}
+
+.des-text h2 {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+}
+
+.des-text p {
+  line-height: 1.6;
+  font-size: 1.1rem;
+}
+
+.des-image {
+  position: relative;
+  flex: 1 1 50%;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: space-between;
+  width: 50%;
+  z-index: -99;
+}
+
+.des-image img {
+  width: 100%;
+  height: 250px;
+  border-radius: 8px;
+  object-fit: cover;
+  box-shadow: -1px 1px 62px -18px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+  .destinations {
+    margin: 2rem auto; /* Reduce margins for smaller screens */
+    padding: 0 1rem; /* Add some padding for spacing */
+  }
+
+  .destinations h1 {
+    font-size: 2rem; /* Adjust font size for better readability */
+    text-align: center;
+  }
+
+  .first-des {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2rem 0;
+  }
+
+  .des-text {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .des-text h2 {
+    font-size: 1.5rem;
+    margin: 0.5rem 0;
+  }
+
+  .des-text p {
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+
+  .des-image {
+    width: 100%; /* Images take full width */
+    flex-direction: row; /* Stack images vertically */
+    gap: 1rem; /* Maintain space between images */
+    justify-content: center;
+  }
+
+  .des-image img {
+    width: 100%;
+    height: 300px;
+    border-radius: 8px;
+    box-shadow: -1px 1px 62px -18px rgba(0, 0, 0, 0.3);
+  }
+}

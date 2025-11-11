@@ -1,0 +1,35 @@
+.upcoming-events-container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background: white;
+}
+
+.event-item {
+  background: #f9f9f9;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.event-item h3 {
+  margin: 0 0 10px;
+  color: teal;
+}
+
+.event-item p {
+  margin: 5px 0;
+}
+
+.book-now-btn{
+  color: teal;
+}
+.book-now-btn:hover{
+  background-color: teal;
+  color: white;
+}
