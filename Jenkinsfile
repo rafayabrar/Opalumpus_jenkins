@@ -33,22 +33,28 @@ pipeline {
         }
         
         stage('Install Chrome') {
-            steps {
-                echo 'Installing Chrome and dependencies...'
-                sh '''
-                    # Install Chrome if not already installed
-                    if ! command -v google-chrome &> /dev/null; then
-                        wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-                        echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
-                        apt-get update
-                        apt-get install -y google-chrome-stable
-                    fi
-                    
-                    # Verify Chrome installation
-                    google-chrome --version
-                '''
-            }
-        }
+    steps {
+        echo "Installing Chrome and dependencies..."
+        sh '''
+            sudo mkdir -p /etc/apt/keyrings
+
+            # Download Google Chrome GPG key
+            wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | \
+                sudo gpg --dearmor -o /etc/apt/keyrings/google-chrome.gpg
+
+            # Add Chrome repo
+            echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/google-chrome.gpg] https://dl.google.com/linux/chrome/deb/ stable main" | \
+                sudo tee /etc/apt/sources.list.d/google-chrome.list
+
+            # Update
+            sudo apt-get update -y
+
+            # Install Chrome
+            sudo apt-get install -y google-chrome-stable
+        '''
+    }
+}
+
         
         stage('Start Application') {
             steps {
