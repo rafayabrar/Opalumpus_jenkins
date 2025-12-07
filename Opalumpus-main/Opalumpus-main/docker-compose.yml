@@ -2,21 +2,27 @@ version: '3.8'
 
 services:
   backend:
-    build:
-      context: ./Backend
-      dockerfile: Dockerfile
+    image: node:18
+    container_name: backend_build_container
+    working_dir: /app
+    volumes:
+      - ./Backend:/app
+    command: ["npm", "install"]     # or ["npm", "run", "build"] if needed
     ports:
-      - "4000:4000"
+      - "5001:4000"
     environment:
       - NODE_ENV=production
     restart: unless-stopped
 
   frontend:
-    build:
-      context: ./Opalumpus_frontEnd
-      dockerfile: Dockerfile
+    image: node:18
+    container_name: frontend_build_container
+    working_dir: /app
+    volumes:
+      - ./Opalumpus_frontEnd:/app
+    command: ["npm", "run", "build"]
     ports:
-      - "80:80"
+      - "8085:80"
     depends_on:
       - backend
     restart: unless-stopped
