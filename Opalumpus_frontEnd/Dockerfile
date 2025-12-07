@@ -1,20 +1,25 @@
-# Frontend Dockerfile - multi-stage build (Vite) and serve via nginx
-
+# Frontend Dockerfile - Jenkins + Vite build fix
 FROM node:18-alpine AS build
 WORKDIR /app
 
-# Install deps and build the production assets
+# Copy package files first
 COPY package.json package-lock.json* ./
-RUN npm install --legacy-peer-deps --no-audit --no-fund
+
+# Install dependencies
+RUN npm ci --legacy-peer-deps --no-audit --no-fund
+
+# Add local binaries to PATH
+ENV PATH /app/node_modules/.bin:$PATH
+
+# Copy source code
 COPY . .
-RUN npm run build
 
+# Use npx to ensure vite is found
+RUN npx vite build
+
+# Production stage
 FROM nginx:stable-alpine AS production
-
-# Copy built static files to nginx html directory
 COPY --from=build /app/dist /usr/share/nginx/html
-
-# Use a custom nginx config for SPA routing
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80

@@ -1,31 +1,30 @@
-# Backend Dockerfile - multi-stage, optimized for small production image
-# Builds a lean runtime image and runs the Express server as a non-root user
-
+# Backend Dockerfile - multi-stage, optimized for production
 FROM node:18-alpine AS deps
 WORKDIR /app
 
-# Install only production dependencies. If you add devDependencies, use a lockfile
+# Copy only package files to install dependencies
 COPY package.json package-lock.json* ./
+
+# Install production dependencies
 RUN npm install --production --no-audit --no-fund
 
+# Runner stage
 FROM node:18-alpine AS runner
 WORKDIR /app
 
-# Create a non-root user to run the app
+# Create non-root user
 RUN addgroup -S app && adduser -S app -G app
 
-# Copy dependencies from deps stage
+# Copy node_modules from deps stage
 COPY --from=deps /app/node_modules ./node_modules
 
-# Copy app source
-COPY . .
-
+# Set environment
 ENV NODE_ENV=production
 EXPOSE 4000
 
-# Ensure files are readable by the non-root user
+# Set ownership and use non-root
 RUN chown -R app:app /app
 USER app
 
-# Start the server (server.js is the entry in this project)
+# Run server - code will be mounted via docker-compose volume
 CMD ["node", "server.js"]
