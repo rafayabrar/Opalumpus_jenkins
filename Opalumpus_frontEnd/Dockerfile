@@ -1,35 +1,25 @@
-# Frontend Dockerfile - optimized for Jenkins pipeline and Vite build
-
-# -------------------
-# Build Stage
-# -------------------
+# Frontend Dockerfile - Jenkins + Vite build fix
 FROM node:18-alpine AS build
 WORKDIR /app
 
-# Copy package files only
+# Copy package files first
 COPY package.json package-lock.json* ./
 
-# Install dependencies (including Vite)
+# Install dependencies
 RUN npm ci --legacy-peer-deps --no-audit --no-fund
 
-# Ensure local binaries are in PATH
+# Add local binaries to PATH
 ENV PATH /app/node_modules/.bin:$PATH
 
 # Copy source code
 COPY . .
 
-# Build frontend assets using npx to ensure local vite binary is used
+# Use npx to ensure vite is found
 RUN npx vite build
 
-# -------------------
-# Production Stage
-# -------------------
+# Production stage
 FROM nginx:stable-alpine AS production
-
-# Copy built files from build stage
 COPY --from=build /app/dist /usr/share/nginx/html
-
-# Copy custom nginx config for SPA routing
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
